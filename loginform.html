@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aadhaar Login (Demo – HTML Only)</title>
+</head>
+<body>
+  <main>
+    <h1>Aadhaar Login</h1>
+
+    <!--
+      Demo page: pure HTML only (no CSS/JS). 
+      Replace `action` below with your server endpoint.
+    -->
+    <form action="/login" method="post">
+      <fieldset>
+        <legend>Choose login method</legend>
+        <label>
+          <input type="radio" name="login_with" value="aadhaar" checked />
+          Aadhaar Number (12 digits)
+        </label>
+        <br />
+        <label>
+          <input type="radio" name="login_with" value="vid" />
+          Virtual ID (VID – 16 digits)
+        </label>
+      </fieldset>
+
+      <p>
+        <label for="aadhaar">Aadhaar Number</label><br />
+        <input 
+          id="aadhaar" 
+          name="aadhaar" 
+          type="text" 
+          inputmode="numeric" 
+          pattern="\d{12}" 
+          minlength="12" 
+          maxlength="12" 
+          placeholder="Enter 12-digit Aadhaar"
+        />
+      </p>
+
+      <p>
+        <label for="vid">Virtual ID (VID)</label><br />
+        <input 
+          id="vid" 
+          name="vid" 
+          type="text" 
+          inputmode="numeric" 
+          pattern="\d{16}" 
+          minlength="16" 
+          maxlength="16" 
+          placeholder="Enter 16-digit VID"
+        />
+      </p>
+
+      <p>
+        <label for="captcha-input">Enter Captcha</label><br />
+        <!-- Placeholder for captcha image; swap src with your generated captcha endpoint -->
+        <img src="/captcha" alt="Captcha image" />
+        <br />
+        <input id="captcha-input" name="captcha" type="text" autocomplete="off" placeholder="Type the text shown above" required />
+      </p>
+
+      <p>
+        <label>
+          <input type="checkbox" name="consent" value="yes" required />
+          I understand this is a demo page and I consent to submit these details for OTP.
+        </label>
+      </p>
+
+      <p>
+        <button type="submit">Send OTP</button>
+      </p>
+
+      <details>
+        <summary>Privacy & Security Note</summary>
+        <p>
+          This is a demo HTML-only page. Do not enter real Aadhaar/VID on untrusted pages.
+          In production, always use HTTPS and server-side validation. OTP will be sent to the
+          mobile number registered with Aadhaar.
+        </p>
+      </details>
+    </form>
+
+    <hr />
+
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How it works (typical flow)</h2>
+      <ol>
+        <li>User enters Aadhaar number or VID and the captcha.</li>
+        <li>Server validates input and calls UIDAI authentication API (AUA/ASA integration).</li>
+        <li>UIDAI sends OTP to the registered mobile number.</li>
+        <li>User enters OTP on a separate page to complete login.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
